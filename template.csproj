@@ -75,7 +75,7 @@
     <Compile Include="Primitive.cs" />
     <Compile Include="Raytracer.cs" />
     <Compile Include="Scene.cs" />
-    <Compile Include="Sphere.cs" />
+    <Compile Include="Pilaar.cs" />
     <Compile Include="surface.cs" />
     <Compile Include="template.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

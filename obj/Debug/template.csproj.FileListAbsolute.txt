@@ -5,3 +5,10 @@ C:\Users\Nicole\Documents\UU\informatica\jaar 1\4 Graphics\P4\bin\Debug\OpenTK.d
 C:\Users\Nicole\Documents\UU\informatica\jaar 1\4 Graphics\P4\obj\Debug\template.csprojResolveAssemblyReference.cache
 C:\Users\Nicole\Documents\UU\informatica\jaar 1\4 Graphics\P4\obj\Debug\template.exe
 C:\Users\Nicole\Documents\UU\informatica\jaar 1\4 Graphics\P4\obj\Debug\template.pdb
+C:\Users\Laura\Documents\GitHub\RaytracerP4\bin\Debug\template.exe.config
+C:\Users\Laura\Documents\GitHub\RaytracerP4\obj\Debug\template.exe
+C:\Users\Laura\Documents\GitHub\RaytracerP4\obj\Debug\template.pdb
+C:\Users\Laura\Documents\GitHub\RaytracerP4\bin\Debug\template.exe
+C:\Users\Laura\Documents\GitHub\RaytracerP4\bin\Debug\template.pdb
+C:\Users\Laura\Documents\GitHub\RaytracerP4\bin\Debug\OpenTK.dll
+C:\Users\Laura\Documents\GitHub\RaytracerP4\obj\Debug\template.csprojResolveAssemblyReference.cache

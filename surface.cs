@@ -122,6 +122,17 @@ namespace Template
 				pixels[dest2 + x] = c;
 			}
 		}
+
+        public void circle(int centrumx, int centrumy, int radius, int c)
+        {
+            int tekenx, tekeny;
+            for (int hoek = 0; hoek < 360; hoek++)
+            {
+                tekenx = (int)(centrumx + radius * Math.Cos(hoek));
+                tekeny = (int)(centrumy + radius * Math.Sin(hoek));
+                pixels[tekeny * width + tekenx] = c;
+            }
+        }
 		public void Bar( int x1, int y1, int x2, int y2, int c )
 		{
 			int dest = y1 * width;

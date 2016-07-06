@@ -11,7 +11,7 @@ namespace Template
 	public class OpenTKApp : GameWindow
 	{
 		static int screenID;
-		static Game game;
+		static Raytracer game;
 		static bool terminated = false;
 		protected override void OnLoad( EventArgs e )
 		{
@@ -20,11 +20,9 @@ namespace Template
 			GL.Enable( EnableCap.Texture2D );
 			GL.Disable( EnableCap.DepthTest );
 			GL.Hint( HintTarget.PerspectiveCorrectionHint, HintMode.Nicest );
-			ClientSize = new Size( 1024, 512 );
-			game = new Game();
+			ClientSize = new Size( 512, 512 );
+			game = new Raytracer();
 			game.screen = new Surface( Width, Height );
-            game.raytracer = new Surface(Width / 2, Height);
-            game.debug = new Surface(Width / 2, Height);
 			Sprite.target = game.screen;
 			screenID = game.screen.GenTexture();
 			game.Init();
