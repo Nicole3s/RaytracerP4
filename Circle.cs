@@ -17,14 +17,13 @@ namespace Template
         }
         public override bool intersect(Ray ray)
         {
-            float dx = Math.Abs(ray.lightsource.X - ray.origin.X);
-            float dy = Math.Abs(ray.lightsource.Y - ray.origin.Y);
-            float dr = (float)Math.Sqrt(dx * dx + dy * dy);
-            float D = ray.origin.X * ray.lightsource.Y - ray.lightsource.X * ray.origin.Y;
+            Vector2 raydirection = Vector2.Normalize(ray.lightsource - ray.origin);
+            
+            double delta = Math.Pow(Vector2.Dot(raydirection, ray.origin - locatie), 2) 
+                - Vector2.Dot(raydirection, raydirection) * (Vector2.Dot(ray.origin - locatie, ray.origin - locatie) 
+                - (radius * radius));
 
-            float delta = radius * radius * dr * dr - D * D;
-
-            if (delta < 0)
+            if (delta <= 0)
                 return false;
             else
                 return true;

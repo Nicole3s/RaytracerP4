@@ -24,7 +24,7 @@ namespace Template
         public void Tick()
         {
             screen.Clear(0);
-            screen.circle(screen.width / 2, screen.height / 2, 100, CreateColor(0, 255, 0)); // referentiecirkel
+            //screen.circle(screen.width / 2, screen.height / 2, 100, CreateColor(0, 255, 0)); // referentiecirkel
             scene.Render(screen);
         }
         int CreateColor(int red, int green, int blue)

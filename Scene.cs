@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenTK;
 
 namespace Template
 {
@@ -27,7 +28,7 @@ namespace Template
 
         public void Render(Surface scr)
         {
-            int intensiteit = 0;
+            double intensiteit = 0;
             double afstand;
 
             for (int y = 0; y < scr.height; y++)
@@ -38,15 +39,15 @@ namespace Template
                     {
                         foreach(Light licht in lightsources)
                         {
-                            if( ! obj.intersect(new Ray(new OpenTK.Vector2(x, y), licht.positie)))
+                            if(!obj.intersect(new Ray(new Vector2(x, y), licht.positie)))
                             {
                                 afstand = Math.Sqrt(Math.Pow(Math.Abs(x - licht.positie.X), 2) + Math.Pow(Math.Abs(y - licht.positie.Y),2));
-                                intensiteit += (int)((licht.intensiteit) / (afstand * afstand));
+                                intensiteit += ((licht.intensiteit) / (afstand * afstand));
                             }
                             
                         }
                     }
-                    scr.pixels[y * scr.width + x] = intensiteit * CreateColor(5, 5, 5);
+                    scr.pixels[y * scr.width + x] = (int)(intensiteit * CreateColor(1, 1, 1));
                 }
             }
         }
