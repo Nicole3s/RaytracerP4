@@ -15,8 +15,8 @@ namespace Template
 {
     class Light
     {
-        Vector2 positie;
-        float intensiteit;
+        public Vector2 positie;
+        public float intensiteit;
         public Light(Vector2 pos, float intens)
         {
             positie = pos;
