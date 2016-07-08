@@ -43,12 +43,12 @@ namespace Template
                             if(!obj.intersect(new Ray(new Vector2(x, y), licht.positie)) )
                             {
                                 afstand = Math.Sqrt(Math.Pow((x - licht.positie.X), 2) + Math.Pow((y - licht.positie.Y),2));
-                                intensiteit = (int)((licht.intensiteit) / (afstand * afstand));
+                                intensiteit += (int)((licht.intensiteit) / (afstand * afstand));
                             }
                            
                         }
                     }
-                    scr.pixels[y * scr.width + x] = ( CreateColor(intensiteit * 1, intensiteit * 1, intensiteit * 1));
+                    scr.pixels[y * scr.width + x] = ( CreateColor(intensiteit, intensiteit, intensiteit));
                 }
             }
         }

@@ -10,12 +10,13 @@ namespace Template
     class Ray
     {
         public Vector2 origin;
-        public Vector2 lightsource;
+        public Vector2 goal;
 
-        public Ray(Vector2 bron, Vector2 licht)
+        public Ray(Vector2 pixel, Vector2 licht)
         {
-            origin = bron;
-            lightsource = licht;
+            // teken de ray vanuit de lamp naar je pixel
+            origin = licht;
+            goal = pixel;
         }
     }
 }
