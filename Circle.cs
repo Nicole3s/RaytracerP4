@@ -40,8 +40,8 @@ namespace Template
             {
                 // voer de overige berekeningen voor de abc formule uit
                 double wortelD = Math.Sqrt((D));
-                double intersectie1 = -b + wortelD / (2 * a);
-                double intersectie2 = -b - wortelD / (2 * a);
+                double intersectie1 = (-b + wortelD) / (2 * a);
+                double intersectie2 = (-b - wortelD) / (2 * a);
 
                 // als de intersectiepunten tussen nul en een liggen, bevindt de pixel zich binnen of achter het object
                 if ((intersectie2 <= 1 && intersectie2 >= 0) || (intersectie1 >= 0 && intersectie1 <= 1)    )
