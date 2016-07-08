@@ -19,11 +19,11 @@ namespace Template
         {
             Vector2 raydirection = Vector2.Normalize(ray.lightsource - ray.origin);
             
-            double delta = Math.Pow(Vector2.Dot(raydirection, ray.origin - locatie), 2) 
-                - Vector2.Dot(raydirection, raydirection) * (Vector2.Dot(ray.origin - locatie, ray.origin - locatie) 
-                - (radius * radius));
+            
+            double delta = Math.Pow(Vector2.Dot(raydirection, ray.origin - locatie), 2) - ( Vector2.Dot(raydirection, raydirection) * (Vector2.Dot(ray.origin - locatie, ray.origin - locatie)  - (radius * radius))*16);
+           
 
-            if (delta <= 0)
+            if (delta < 0)
                 return false;
             else
                 return true;

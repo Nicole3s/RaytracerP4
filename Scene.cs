@@ -28,26 +28,27 @@ namespace Template
 
         public void Render(Surface scr)
         {
-            double intensiteit = 0;
+            
             double afstand;
 
             for (int y = 0; y < scr.height; y++)
             {
                 for(int x = 0; x < scr.width; x++)
                 {
+                    int intensiteit = 0;
                     foreach (Primitive obj in elementen)
                     {
                         foreach(Light licht in lightsources)
                         {
-                            if(!obj.intersect(new Ray(new Vector2(x, y), licht.positie)))
+                            if(!obj.intersect(new Ray(new Vector2(x, y), licht.positie)) )
                             {
-                                afstand = Math.Sqrt(Math.Pow(Math.Abs(x - licht.positie.X), 2) + Math.Pow(Math.Abs(y - licht.positie.Y),2));
-                                intensiteit += ((licht.intensiteit) / (afstand * afstand));
+                                afstand = Math.Sqrt(Math.Pow((x - licht.positie.X), 2) + Math.Pow((y - licht.positie.Y),2));
+                                intensiteit = (int)((licht.intensiteit) / (afstand * afstand));
                             }
-                            
+                           
                         }
                     }
-                    scr.pixels[y * scr.width + x] = (int)(intensiteit * CreateColor(1, 1, 1));
+                    scr.pixels[y * scr.width + x] = ( CreateColor(intensiteit * 1, intensiteit * 1, intensiteit * 1));
                 }
             }
         }

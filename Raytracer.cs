@@ -19,7 +19,7 @@ namespace Template
         {
             scene = new Scene();
             scene.AddObject(new circle(new Vector2(screen.width / 2, screen.height / 2), 100));
-            scene.AddLightsource(new Light(new Vector2(0, screen.height / 2), 60));
+            scene.AddLightsource(new Light(new Vector2(50, screen.height / 2), 4500000));
         }
         public void Tick()
         {
