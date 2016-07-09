@@ -35,20 +35,25 @@ namespace Template
             {
                 for(int x = 0; x < scr.width; x++)
                 {
-                    int intensiteit = 0;
+                    float intensiteit = 0.0f;
                     foreach (Primitive obj in elementen)
                     {
                         foreach(Light licht in lightsources)
                         {
                             if(!obj.intersect(new Ray(new Vector2(x, y), licht.positie)) )
                             {
-                                afstand = Math.Sqrt(Math.Pow((x - licht.positie.X), 2) + Math.Pow((y - licht.positie.Y),2));
-                                intensiteit += (int)((licht.intensiteit) / (afstand * afstand));
+                                afstand = Vector2.Dot(new Vector2(x, y) - licht.positie, new Vector2(x,y) - licht.positie) / Math.Max(scr.height, scr.width); // de afstand is zo afhankelijk van je scherm
+                                intensiteit += (float)(licht.intensiteit / (1 + afstand * afstand)); // zorg dat je niet deelt door 0 en verander de attenuation
                             }
                            
                         }
                     }
-                    scr.pixels[y * scr.width + x] = ( CreateColor(intensiteit, intensiteit, intensiteit));
+                    int kleurwaarde;
+                    if (intensiteit > 1)
+                        kleurwaarde = 255; // grote intensiteit wordt 'gewoon' wit
+                    else
+                        kleurwaarde = (int)(intensiteit * 255);
+                    scr.pixels[y * scr.width + x] = CreateColor(kleurwaarde, kleurwaarde, kleurwaarde);
                 }
             }
         }
