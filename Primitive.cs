@@ -12,5 +12,6 @@ namespace Template
         protected Vector2 locatie;
 
         public abstract bool intersect(Ray ray);
+        public abstract bool incirkel(Ray ray);
     }
 }

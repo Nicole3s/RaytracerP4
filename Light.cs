@@ -17,10 +17,29 @@ namespace Template
     {
         public Vector2 positie;
         public float intensiteit;
-        public Light(Vector2 pos, float intens)
+        public string beweging;
+        public Light(Vector2 pos, float intens, string richting)
         {
             positie = pos;
             intensiteit = intens;
+            beweging = richting;
+
+        }
+
+        public void heenenweerX(bool up)
+        {
+            if (up)
+                positie.X += 5;
+            else
+                positie.X -= 5;
+        }
+
+        public void heenenweerY(bool up)
+        {
+            if (up)
+                positie.Y += 5;
+            else
+                positie.Y -= 5;
         }
     }
 }

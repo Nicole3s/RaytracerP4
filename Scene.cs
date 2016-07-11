@@ -11,6 +11,9 @@ namespace Template
     {
         List<Primitive> elementen;
         List<Light> lightsources;
+        int countX = 0;
+        bool up;
+
         public Scene()
         {
             elementen = new List<Primitive>();
@@ -28,26 +31,30 @@ namespace Template
 
         public void Render(Surface scr)
         {
-            
-            double afstand;
+
+            foreach (Light licht in lightsources)
+            {
+                if (countX == 10)
+                {
+                    if (up == false)
+                        up = true;
+                    else
+                        up = false;
+                    countX = 0;
+                }
+                if(licht.beweging == "rechts")
+                    licht.heenenweerX(up);
+                if (licht.beweging == "op")
+                    licht.heenenweerY(up);
+            }
+            countX++;
 
             for (int y = 0; y < scr.height; y++)
             {
                 for(int x = 0; x < scr.width; x++)
                 {
-                    float intensiteit = 0.0f;
-                    foreach (Primitive obj in elementen)
-                    {
-                        foreach(Light licht in lightsources)
-                        {
-                            if(!obj.intersect(new Ray(new Vector2(x, y), licht.positie)) )
-                            {
-                                afstand = Vector2.Dot(new Vector2(x, y) - licht.positie, new Vector2(x,y) - licht.positie) / Math.Max(scr.height, scr.width); // de afstand is zo afhankelijk van je scherm
-                                intensiteit += (float)(licht.intensiteit / (1 + afstand * afstand)); // zorg dat je niet deelt door 0 en verander de attenuation
-                            }
-                           
-                        }
-                    }
+                    float intensiteit = bepaalintensiteit(x, y, scr);
+
                     int kleurwaarde;
                     if (intensiteit > 1)
                         kleurwaarde = 255; // grote intensiteit wordt 'gewoon' wit
@@ -56,6 +63,32 @@ namespace Template
                     scr.pixels[y * scr.width + x] = CreateColor(kleurwaarde, kleurwaarde, kleurwaarde);
                 }
             }
+
+        }
+
+        float bepaalintensiteit(int x, int y, Surface scr)
+        {
+            float intensiteit = 0.0f;
+            double afstand;
+
+            foreach (Primitive obj in elementen)
+            {
+                foreach (Light licht in lightsources)
+                {
+                    Ray ray = new Ray(new Vector2(x, y), licht.positie);
+                    if (obj.incirkel(ray))
+                        return 0.02f;
+                    if (licht.positie.X == x && licht.positie.Y == y)
+                        return 1.0f;
+                    if (!obj.intersect(ray))
+                    {
+                        afstand = Vector2.Dot(new Vector2(x, y) - licht.positie, new Vector2(x, y) - licht.positie) / Math.Max(scr.height, scr.width); // de afstand is zo afhankelijk van je scherm
+                        intensiteit += (float)(licht.intensiteit * 0.035/ (1 + 0.5 * afstand)); // verander de attenuation
+                    }
+
+                }
+            }
+            return intensiteit;
         }
 
         int CreateColor(int red, int green, int blue)
