@@ -57,7 +57,7 @@ namespace Template
             // als D == 0, raakt de ray de cirkel, maar hij snijdt niet, 
             // dus er is geen intersectie en de invloed van het licht wordt meegenomen
             else if (D == 0)
-                return true;
+                return false;
             // als D > 0 moet je bepalen of de te tekenen pixel voor of achter het object ligt
             else
             {

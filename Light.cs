@@ -41,5 +41,19 @@ namespace Template
             else
                 positie.Y -= 5;
         }
+        public void heenenweerschuin(bool up)
+        {
+            if (up)
+            {
+                positie.X += 5;
+                positie.Y -= 5;
+            }
+
+            else
+            {
+                positie.X -= 5;
+                positie.Y += 5;
+            }
+        }
     }
 }

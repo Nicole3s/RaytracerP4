@@ -12,7 +12,7 @@ namespace Template
         List<Primitive> elementen;
         List<Light> lightsources;
         int countX = 0;
-        bool up;
+        bool up = true;
 
         public Scene()
         {
@@ -36,16 +36,18 @@ namespace Template
             {
                 if (countX == 10)
                 {
-                    if (up == false)
-                        up = true;
-                    else
+                    if (up == true)
                         up = false;
+                    else
+                        up = true;
                     countX = 0;
                 }
                 if(licht.beweging == "rechts")
                     licht.heenenweerX(up);
                 if (licht.beweging == "op")
                     licht.heenenweerY(up);
+                if (licht.beweging == "schuin")
+                    licht.heenenweerschuin(up);
             }
             countX++;
 
