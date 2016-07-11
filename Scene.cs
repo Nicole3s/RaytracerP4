@@ -12,6 +12,7 @@ namespace Template
         List<Primitive> elementen;
         List<Light> lightsources;
         int countX = 0;
+        double graden = 0;
         bool up = true;
 
         public Scene()
@@ -48,8 +49,11 @@ namespace Template
                     licht.heenenweerY(up);
                 if (licht.beweging == "schuin")
                     licht.heenenweerschuin(up);
+                if (licht.beweging == "rondje")
+                    licht.rondje(up, graden );
             }
-            countX++;
+            countX += 1;
+            graden += 1;
 
             for (int y = 0; y < scr.height; y++)
             {

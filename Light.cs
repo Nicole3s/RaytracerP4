@@ -55,5 +55,21 @@ namespace Template
                 positie.Y += 5;
             }
         }
+        public void rondje(bool up, double grad)
+        {
+            if (up)
+            {
+                positie.X += (float)(Math.Cos(grad) * 35);
+                positie.Y += (float)( Math.Sin(grad) * 35);
+            }
+            else
+            {
+                positie.X += (float)(Math.Cos(grad) * 35);
+                positie.Y += (float)( Math.Sin(grad) * 35);
+            }
+        }
+
+
     }
+    
 }

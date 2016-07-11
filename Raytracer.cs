@@ -28,7 +28,7 @@ namespace Template
             scene.AddLightsource(new Light(new Vector2(50, screen.height / 2), 6, "rechts"));
             scene.AddLightsource(new Light(new Vector2(screen.width / 3, 15), 2, "op"));
             scene.AddLightsource(new Light(new Vector2(screen.width / 4, screen.height / 6 * 5), 25, "schuin"));
-            scene.AddLightsource(new Light(new Vector2(screen.width / 6 * 5, screen.height / 5 * 3), 10, null));
+            scene.AddLightsource(new Light(new Vector2(screen.width *0.7f, screen.height *0.7f), 10, "rondje"));
         }
         public void Tick()
         {
