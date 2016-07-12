@@ -18,11 +18,15 @@ namespace Template
         public Vector2 positie;
         public float intensiteit;
         public string beweging;
-        public Light(Vector2 pos, float intens, string richting)
+        public float kw1, kw2, kw3;
+        public Light(Vector2 pos, float intens, string richting, float kleur1,float kleur2, float kleur3)
         {
             positie = pos;
             intensiteit = intens;
             beweging = richting;
+            kw1 = kleur1;
+            kw2 = kleur2;
+            kw3 = kleur3;
 
         }
 
@@ -55,20 +59,26 @@ namespace Template
                 positie.Y += 5;
             }
         }
-        public void rondje(bool up, double grad)
+        public void rondje(double grad)
         {
-            if (up)
+                positie.X += (float)( Math.Cos(grad) * 50);
+                positie.Y += (float)( Math.Sin(grad) * 50);
+        
+        }
+
+        public void boog( bool heen, double grad)
+        {
+            if (heen)
             {
-                positie.X += (float)(Math.Cos(grad) * 35);
-                positie.Y += (float)( Math.Sin(grad) * 35);
+                positie.X += (float)(Math.Cos(grad) * 50);
+                positie.Y += (float)(Math.Sin(grad) * 50);
             }
             else
             {
-                positie.X += (float)(Math.Cos(grad) * 35);
-                positie.Y += (float)( Math.Sin(grad) * 35);
+                positie.X -= (float)(Math.Cos(grad) * 50);
+                positie.Y += (float)(Math.Sin(grad) * 50);
             }
         }
-
 
     }
     

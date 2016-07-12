@@ -25,10 +25,10 @@ namespace Template
             scene.AddObject(new circle(new Vector2(screen.width / 5 * 4, screen.height / 3), 10)); //kleine pilaar rechtsboven de grote
 
             //lichten
-            scene.AddLightsource(new Light(new Vector2(50, screen.height / 2), 6, "rechts"));
-            scene.AddLightsource(new Light(new Vector2(screen.width / 3, 15), 2, "op"));
-            scene.AddLightsource(new Light(new Vector2(screen.width / 4, screen.height / 6 * 5), 25, "schuin"));
-            scene.AddLightsource(new Light(new Vector2(screen.width *0.7f, screen.height *0.7f), 10, "rondje"));
+            scene.AddLightsource(new Light(new Vector2(50, screen.height / 2), 6, "rechts", 0.0f, 0.0f, 1.0f));
+            scene.AddLightsource(new Light(new Vector2(screen.width / 3, 15), 4, "op", 0.0f, 0.0f, 0.0f));
+            scene.AddLightsource(new Light(new Vector2(screen.width / 4, screen.height / 6 * 5), 25, "schuin", 0.0f, 0.0f, 0.0f));
+            scene.AddLightsource(new Light(new Vector2(screen.width *0.7f, screen.height *0.7f), 10, "rondje",1.0f,1.0f,1.0f));
         }
         public void Tick()
         {

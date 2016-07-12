@@ -12,8 +12,11 @@ namespace Template
         List<Primitive> elementen;
         List<Light> lightsources;
         int countX = 0;
-        double graden = 0;
+        double graden = 0, gradBoog = 0;
         bool up = true;
+        public float kleur1, kleur2, kleur3;
+        Vector3 kleurwaardes;
+        
 
         public Scene()
         {
@@ -35,6 +38,10 @@ namespace Template
 
             foreach (Light licht in lightsources)
             {
+                kleur1 =  licht.kw1;
+                kleur2 = licht.kw2;
+                kleur3 = licht.kw3;
+
                 if (countX == 10)
                 {
                     if (up == true)
@@ -42,7 +49,9 @@ namespace Template
                     else
                         up = true;
                     countX = 0;
+                                    
                 }
+                
                 if(licht.beweging == "rechts")
                     licht.heenenweerX(up);
                 if (licht.beweging == "op")
@@ -50,23 +59,39 @@ namespace Template
                 if (licht.beweging == "schuin")
                     licht.heenenweerschuin(up);
                 if (licht.beweging == "rondje")
-                    licht.rondje(up, graden );
+                    licht.rondje(graden );
+                if (licht.beweging == "boog")
+                    licht.boog(up, gradBoog);
             }
             countX += 1;
-            graden += 1;
+            graden += 0.5;
+            gradBoog += 0.5;
 
+           
             for (int y = 0; y < scr.height; y++)
             {
                 for(int x = 0; x < scr.width; x++)
                 {
+                    
                     float intensiteit = bepaalintensiteit(x, y, scr);
+                    
 
-                    int kleurwaarde;
+                    int kleurwaarde, kleurwaarde1, kleurwaarde2,kleurwaarde3;
                     if (intensiteit > 1)
+                    {
                         kleurwaarde = 255; // grote intensiteit wordt 'gewoon' wit
+                        kleurwaarde1 = (int)(kleur1 * 255);
+                        kleurwaarde2 = (int)(kleur2 * 255);
+                        kleurwaarde3 = (int)(kleur3 * 255);
+                    }
                     else
+                    {
                         kleurwaarde = (int)(intensiteit * 255);
-                    scr.pixels[y * scr.width + x] = CreateColor(kleurwaarde, kleurwaarde, kleurwaarde);
+                        kleurwaarde1 = (int)(intensiteit * kleur1 * 255);
+                        kleurwaarde2 = (int)(intensiteit * kleur2 * 255);
+                        kleurwaarde3 = (int)(intensiteit * kleur3 * 255);
+                    }
+                    scr.pixels[y * scr.width + x] = CreateColor(kleurwaarde1, kleurwaarde2, kleurwaarde3);
                 }
             }
 
@@ -81,6 +106,7 @@ namespace Template
             {
                 foreach (Light licht in lightsources)
                 {
+                    
                     Ray ray = new Ray(new Vector2(x, y), licht.positie);
                     if (obj.incirkel(ray))
                         return 0.02f;
@@ -90,6 +116,7 @@ namespace Template
                     {
                         afstand = Vector2.Dot(new Vector2(x, y) - licht.positie, new Vector2(x, y) - licht.positie) / Math.Max(scr.height, scr.width); // de afstand is zo afhankelijk van je scherm
                         intensiteit += (float)(licht.intensiteit * 0.035/ (1 + 0.5 * afstand)); // verander de attenuation
+                        
                     }
 
                 }
