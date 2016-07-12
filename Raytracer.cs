@@ -21,14 +21,19 @@ namespace Template
             // pilaren
             scene.AddObject(new circle(new Vector2(screen.width / 2, screen.height / 2), 75)); // grote pilaar in het midden
             scene.AddObject(new circle(new Vector2(screen.width / 6, 50), 30)); // kleinere pilaar linksbovenin
-            scene.AddObject(new circle(new Vector2(screen.width / 4 * 3, screen.height / 6), 45));
+            scene.AddObject(new circle(new Vector2(screen.width / 4 * 3, screen.height / 6), 45)); // middelgrote pilaar rechts bovenin
             scene.AddObject(new circle(new Vector2(screen.width / 5 * 4, screen.height / 3), 10)); //kleine pilaar rechtsboven de grote
+            scene.AddObject(new circle(new Vector2(screen.width / 2, screen.height / 4), 10));
+            scene.AddObject(new circle(new Vector2(screen.width / 2 + 10, screen.height / 4 + 5), 10));
+            scene.AddObject(new circle(new Vector2(screen.width / 2 + 35, screen.height / 4 - 5), 10));
 
-            //lichten
-            scene.AddLightsource(new Light(new Vector2(50, screen.height / 2), 6, "rechts", 0.0f, 0.0f, 1.0f));
-            scene.AddLightsource(new Light(new Vector2(screen.width / 3, 15), 4, "op", 0.0f, 0.0f, 0.0f));
-            scene.AddLightsource(new Light(new Vector2(screen.width / 4, screen.height / 6 * 5), 25, "schuin", 0.0f, 0.0f, 0.0f));
-            scene.AddLightsource(new Light(new Vector2(screen.width *0.7f, screen.height *0.7f), 10, "rondje",1.0f,1.0f,1.0f));
+
+            //lichten, kies voor intensiteit een waarde tussen 0 en 99
+            scene.AddLightsource(new Light(new Vector2(50, screen.height / 2), 60, null, 1.0f, 1.0f, 1.0f));
+            scene.AddLightsource(new Light(new Vector2(screen.width / 3, 15), 40, null, 1.0f, 1.0f, 1.0f));
+            scene.AddLightsource(new Light(new Vector2(screen.width / 4, screen.height / 6 * 5), 80, null, 0.0f, 1.0f, 0.0f));
+            scene.AddLightsource(new Light(new Vector2(screen.width * 0.7f, screen.height * 0.7f), 99, "op", 1.0f, 0.0f, 0.0f));
+            scene.AddLightsource(new Light(new Vector2(screen.width / 2 + 25, screen.height / 4), 50, null, 1.0f, 0.0f, 1.0f));
         }
         public void Tick()
         {
