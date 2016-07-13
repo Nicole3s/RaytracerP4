@@ -10,22 +10,22 @@ namespace Template
     class Scene
     {
         List<Primitive> elementen;
-        List<Light> lightsources;
+        List<Lichten> lightsources;
         int countX = 0;
-        double graden = 0;//, gradBoog = 0;
+        double graden = 0;
         bool up = false;
 
         public Scene()
         {
             elementen = new List<Primitive>();
-            lightsources = new List<Light>();
+            lightsources = new List<Lichten>();
         }
 
         public void AddObject(Primitive obj)
         {
             elementen.Add(obj);
         }
-        public void AddLightsource(Light licht)
+        public void AddLightsource(Lichten licht)
         {
             lightsources.Add(licht);
         }
@@ -33,7 +33,7 @@ namespace Template
         public void Render(Surface scr)
         {
 
-            foreach (Light licht in lightsources) // bepaal per licht de beweging in het veld
+            foreach (Lichten licht in lightsources) // bepaal per licht de beweging in het veld
             {
                 if (countX == 20)
                 {
@@ -45,7 +45,7 @@ namespace Template
 
                 }
 
-                switch (licht.beweging) // dit is sneller dan een if-else statement!
+                switch (licht.beweging)
                 {
                     case "rechts":
                         licht.heenenweerX(up);
@@ -69,53 +69,40 @@ namespace Template
             {
                 for (int x = 0; x < scr.width; x++) // ga iedere pixel af en bepaal de kleur van de pixel
                 {
-                    scr.pixels[y * scr.width + x] = bepaalintensiteit(x, y, scr); 
+                    scr.pixels[y * scr.width + x] = bepaalintensiteit(x, y, scr);
                 }
             }
         }
 
         int bepaalintensiteit(int x, int y, Surface scr)
         {
-            float pixelintensiteit = 0.0f, intens; // intens is in de lamp, intensiteit is op de pixel
+            float pixelintensiteit = 0.0f; // intens is in de lamp, intensiteit is op de pixel
             float rood, groen, blauw;
-            double afstand;
-            int lichtenoppixel = 0; // begin altijd met nul lichten
             float kleurwaarde1 = 0, kleurwaarde2 = 0, kleurwaarde3 = 0; // begin altijd zonder licht
-            bool rayintersect;
 
-            foreach (Light licht in lightsources)
+            foreach (Lichten licht in lightsources)
             {
-                rayintersect = false;
                 rood = licht.kw1;   // bepalen de kleur van je lamp
                 groen = licht.kw2;
                 blauw = licht.kw3;
-
-                intens = licht.intensiteit;
-                Ray ray = new Ray(new Vector2(x, y), licht.positie);
-
-               
-                foreach (Primitive obj in elementen)
+                float Lampintensiteit = 0;
+                if (licht.GetType() == new Light().GetType())
                 {
-                    if (obj.incirkel(ray)) // bovenop de pilaren valt geen licht, dus deze zijn zwart
-                        return 0;
-                    if (!rayintersect) // als de ray is geintersect, hoef je de andere objecten niet meer af te gaan en wil je met deze lamp niet meer tekenen
+                    Lampintensiteit = lampintensiteit(licht.positie, x, y, licht.intensiteit, scr);
+                }
+                if (licht is AreaLight)
+                {
+                    for(int i = 0; i < licht.aantalpunten; i++)
                     {
-                        if (obj.intersect(ray))
-                            rayintersect = true;
+                        Lampintensiteit += lampintensiteit(licht.bepaalpunten(i), x, y, licht.intensiteit, scr);
                     }
+                    Lampintensiteit /= licht.aantalpunten;
                 }
-                if (!rayintersect)
-                {
-                    afstand = Vector2.Dot(new Vector2(x, y) - licht.positie, new Vector2(x, y) - licht.positie) / Math.Max(scr.height, scr.width); // de afstand is zo afhankelijk van je scherm
-                    float lampintensiteit = (float)(intens / (1 + 0.2 * afstand * afstand)); // verander de attenuation
-
-                    pixelintensiteit += lampintensiteit;
-                    kleurwaarde1 += rood * lampintensiteit;
-                    kleurwaarde2 += groen * lampintensiteit;
-                    kleurwaarde3 += blauw * lampintensiteit;
-
-                    lichtenoppixel++;
-                }
+                    pixelintensiteit += Lampintensiteit;
+                    kleurwaarde1 += rood * Lampintensiteit;
+                    kleurwaarde2 += groen * Lampintensiteit;
+                    kleurwaarde3 += blauw * Lampintensiteit;
+                
             }
 
             if (pixelintensiteit > 1)
@@ -126,8 +113,7 @@ namespace Template
                 kleurwaarde3 = (int)(kleurwaarde3 * 255);
             }
             else
-            {
-                //kleurwaarde = (int)(intensiteit * (255 / 100));
+            {               
                 kleurwaarde1 = (int)(pixelintensiteit * (kleurwaarde1) * 255);
                 kleurwaarde2 = (int)(pixelintensiteit * (kleurwaarde2) * 255);
                 kleurwaarde3 = (int)(pixelintensiteit * (kleurwaarde3) * 255);
@@ -143,7 +129,32 @@ namespace Template
             return CreateColor((int)kleurwaarde1, (int)kleurwaarde2, (int)kleurwaarde3);
         }
 
+        float lampintensiteit(Vector2 positie, int x, int y, int intens, Surface scr)
+        {
+            bool rayintersect = false;
+            Ray ray = new Ray(new Vector2(x, y), positie); // positie is de positie van de lamp
+            float afstand;
+
+            foreach (Primitive obj in elementen)
+            {
+                if (obj.incirkel(ray)) // bovenop de pilaren valt geen licht, dus deze zijn zwart
+                    return 0;
+                if (!rayintersect) // als de ray is geintersect, hoef je de andere objecten niet meer af te gaan en wil je met deze lamp niet meer tekenen
+                {
+                    if (obj.intersect(ray))
+                        rayintersect = true;
+                }
+            }
+            if (!rayintersect)
+            {
+                afstand = Vector2.Dot(new Vector2(x, y) - positie, new Vector2(x, y) - positie) / Math.Max(scr.height, scr.width); // de afstand is zo afhankelijk van je scherm
+                return (float)(intens / (1 + 0.2 * afstand * afstand)); // verander de attenuation
+            }
+            else return 0;
+        }
+
         int CreateColor(int red, int green, int blue)
         { return (red << 16) + (green << 8) + blue; }
+
     }
 }

@@ -13,13 +13,11 @@ using OpenTK.Input;
 
 namespace Template
 {
-    class Light
+    class Light : Lichten
     {
-        public Vector2 positie;
-        public float intensiteit;
-        public string beweging;
-        public float kw1, kw2, kw3;
-        public Light(Vector2 pos, float intens, string richting, float kleur1,float kleur2, float kleur3)
+
+        public Light() { }
+        public Light(Vector2 pos, int intens, string richting, float kleur1,float kleur2, float kleur3)
         {
             positie = pos;
             intensiteit = intens;
@@ -30,7 +28,7 @@ namespace Template
 
         }
 
-        public void heenenweerX(bool up)
+        public override void heenenweerX(bool up)
         {
             if (up)
                 positie.X += 5;
@@ -38,14 +36,14 @@ namespace Template
                 positie.X -= 5;
         }
 
-        public void heenenweerY(bool up)
+        public override void heenenweerY(bool up)
         {
             if (up)
                 positie.Y += 5;
             else
                 positie.Y -= 5;
         }
-        public void heenenweerschuin(bool up)
+        public override void heenenweerschuin(bool up)
         {
             if (up)
             {
@@ -59,14 +57,17 @@ namespace Template
                 positie.Y -= 15;
             }
         }
-        public void rondje(double grad)
+        public override void rondje(double grad)
         {
                 positie.X += (float)( Math.Cos(grad) * 27);
                 positie.Y += (float)( Math.Sin(grad) * 27);
         
         }
+        public override Vector2 bepaalpunten(int ding)
+        {
+            throw new NotImplementedException();
+        }
 
-       
 
     }
     

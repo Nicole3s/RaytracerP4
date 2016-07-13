@@ -16,6 +16,7 @@ namespace Template
             radius = rad;
         }
 
+
         public override bool incirkel(Ray ray)
         {
             // bepaal de richting van de ray
@@ -33,7 +34,10 @@ namespace Template
             double intersectie1 = (-b + wortelD) / (2 * a);
             double intersectie2 = (-b - wortelD) / (2 * a);
 
-            if ((intersectie1 >= 0 && intersectie1 <= 1 && intersectie2 > 1) || (intersectie2 >= 0 && intersectie2 <= 1 && intersectie1 > 1))
+            if ((intersectie1 >= 0 && intersectie1 <= 1 && intersectie2 > 1)
+                || (intersectie2 >= 0 && intersectie2 <= 1 && intersectie1 > 1)
+                || (intersectie1 <= 0 && intersectie2 >= 1) 
+                || (intersectie2 <= 0 && intersectie1 >= 1))
                 return true;
 
             return false;

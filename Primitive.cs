@@ -13,5 +13,6 @@ namespace Template
 
         public abstract bool intersect(Ray ray);
         public abstract bool incirkel(Ray ray);
+        
     }
 }
