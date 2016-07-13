@@ -49,36 +49,24 @@ namespace Template
         {
             if (up)
             {
-                positie.X += 5;
-                positie.Y -= 5;
+                positie.X -= 15;
+                positie.Y += 15;
             }
 
             else
             {
-                positie.X -= 5;
-                positie.Y += 5;
+                positie.X += 15;
+                positie.Y -= 15;
             }
         }
         public void rondje(double grad)
         {
-                positie.X += (float)( Math.Cos(grad) * 50);
-                positie.Y += (float)( Math.Sin(grad) * 50);
+                positie.X += (float)( Math.Cos(grad) * 27);
+                positie.Y += (float)( Math.Sin(grad) * 27);
         
         }
 
-        public void boog( bool heen, double grad)
-        {
-            if (heen)
-            {
-                positie.X += (float)(Math.Cos(grad) * 50);
-                positie.Y += (float)(Math.Sin(grad) * 50);
-            }
-            else
-            {
-                positie.X -= (float)(Math.Cos(grad) * 50);
-                positie.Y += (float)(Math.Sin(grad) * 50);
-            }
-        }
+       
 
     }
     

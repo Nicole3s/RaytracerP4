@@ -29,11 +29,11 @@ namespace Template
 
 
             //lichten, kies voor intensiteit een waarde tussen 0 en 99
-            scene.AddLightsource(new Light(new Vector2(50, screen.height / 2), 60, null, 1.0f, 1.0f, 1.0f));
-            scene.AddLightsource(new Light(new Vector2(screen.width / 3, 15), 40, null, 1.0f, 1.0f, 1.0f));
-            scene.AddLightsource(new Light(new Vector2(screen.width / 4, screen.height / 6 * 5), 80, null, 0.0f, 1.0f, 0.0f));
-            scene.AddLightsource(new Light(new Vector2(screen.width * 0.7f, screen.height * 0.7f), 99, "op", 1.0f, 0.0f, 0.0f));
-            scene.AddLightsource(new Light(new Vector2(screen.width / 2 + 25, screen.height / 4), 50, null, 1.0f, 0.0f, 1.0f));
+            scene.AddLightsource(new Light(new Vector2(50, screen.height / 2), 99, null, 1.0f, 1.0f, 1.0f));
+            scene.AddLightsource(new Light(new Vector2(screen.width / 3, 15), 15, "rondje", 0.8f, 0.8f, 0.8f));
+            scene.AddLightsource(new Light(new Vector2(screen.width / 5 * 2, screen.height / 6 * 5), 5, "schuin", 0.0f, 1.0f, 0.0f));
+            scene.AddLightsource(new Light(new Vector2(screen.width * 0.75f, screen.height * 0.5f), 80, "op", 1.0f, 0.0f, 0.0f));
+            scene.AddLightsource(new Light(new Vector2(screen.width / 2 + 25, screen.height / 4), 50, null, 0.0f, 0.0f, 1.0f));
         }
         public void Tick()
         {

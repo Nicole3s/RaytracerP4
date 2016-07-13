@@ -110,7 +110,7 @@ namespace Template
                 if (!rayintersect)
                 {
                     afstand = Vector2.Dot(new Vector2(x, y) - licht.positie, new Vector2(x, y) - licht.positie) / Math.Max(scr.height, scr.width); // de afstand is zo afhankelijk van je scherm
-                    float lampintensiteit = (float)(intens / (1 + 0.5 * afstand * afstand)); // verander de attenuation
+                    float lampintensiteit = (float)(intens / (1 + 0.2 * afstand * afstand)); // verander de attenuation
 
                     pixelintensiteit += lampintensiteit;
                     kleurwaarde1 += rood * lampintensiteit;
