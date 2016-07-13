@@ -93,10 +93,7 @@ namespace Template
                 intens = licht.intensiteit;
                 Ray ray = new Ray(new Vector2(x, y), licht.positie);
 
-                if (licht.positie.X == x && licht.positie.Y == y) // als je pixel je lamp is, return je de kleur van de lamp
-                    return CreateColor((int)(rood * 255), (int)(groen * 255), (int)(blauw * 255));
-
-
+               
                 foreach (Primitive obj in elementen)
                 {
                     if (obj.incirkel(ray)) // bovenop de pilaren valt geen licht, dus deze zijn zwart
