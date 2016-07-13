@@ -81,11 +81,11 @@ namespace Template
             double afstand;
             int lichtenoppixel = 0; // begin altijd met nul lichten
             float kleurwaarde1 = 0, kleurwaarde2 = 0, kleurwaarde3 = 0; // begin altijd zonder licht
-            bool lichtgebruikt;
+            bool rayintersect;
 
             foreach (Light licht in lightsources)
             {
-                lichtgebruikt = false;
+                rayintersect = false;
                 rood = licht.kw1;   // bepalen de kleur van je lamp
                 groen = licht.kw2;
                 blauw = licht.kw3;
@@ -93,35 +93,40 @@ namespace Template
                 intens = licht.intensiteit;
                 Ray ray = new Ray(new Vector2(x, y), licht.positie);
 
+                if (licht.positie.X == x && licht.positie.Y == y) // als je pixel je lamp is, return je de kleur van de lamp
+                    return CreateColor((int)(rood * 255), (int)(groen * 255), (int)(blauw * 255));
+
+
                 foreach (Primitive obj in elementen)
                 {
-                    
                     if (obj.incirkel(ray)) // bovenop de pilaren valt geen licht, dus deze zijn zwart
                         return 0;
-                    if (licht.positie.X == x && licht.positie.Y == y) // de positie van de lamp zelf
-                        return CreateColor((int)(intens * rood / 10 * 255), (int)(intens * groen / 10 * 255), (int)(intens * blauw / 10 * 255));
-
-                    if (!obj.intersect(ray) && !lichtgebruikt)
+                    if (!rayintersect) // als de ray is geintersect, hoef je de andere objecten niet meer af te gaan en wil je met deze lamp niet meer tekenen
                     {
-                        afstand = Vector2.Dot(new Vector2(x, y) - licht.positie, new Vector2(x, y) - licht.positie) / Math.Max(scr.height, scr.width); // de afstand is zo afhankelijk van je scherm
-                        float lampintensiteit = (float)(intens * 0.035 / (1 + afstand * afstand)); // verander de attenuation
-                        pixelintensiteit += lampintensiteit;
-                        kleurwaarde1 += rood * lampintensiteit;
-                        kleurwaarde2 += groen * lampintensiteit;
-                        kleurwaarde3 += blauw * lampintensiteit;
-
-                        lichtenoppixel++;
-                        //lichtgebruikt = true;
+                        if (obj.intersect(ray))
+                            rayintersect = true;
                     }
+                }
+                if (!rayintersect)
+                {
+                    afstand = Vector2.Dot(new Vector2(x, y) - licht.positie, new Vector2(x, y) - licht.positie) / Math.Max(scr.height, scr.width); // de afstand is zo afhankelijk van je scherm
+                    float lampintensiteit = (float)(intens / (1 + 0.5 * afstand * afstand)); // verander de attenuation
+
+                    pixelintensiteit += lampintensiteit;
+                    kleurwaarde1 += rood * lampintensiteit;
+                    kleurwaarde2 += groen * lampintensiteit;
+                    kleurwaarde3 += blauw * lampintensiteit;
+
+                    lichtenoppixel++;
                 }
             }
 
-            if (pixelintensiteit > 1)
+            if (pixelintensiteit >= 1)
             {
                 // grote intensiteit wordt 'gewoon' fel, afhankelijk van de intensiteit van het licht
-                kleurwaarde1 = (int)(kleurwaarde1 / lichtenoppixel * (255));
-                kleurwaarde2 = (int)(kleurwaarde2 / lichtenoppixel * (255));
-                kleurwaarde3 = (int)(kleurwaarde3 / lichtenoppixel * (255));
+                kleurwaarde1 = (int)(kleurwaarde1 / lichtenoppixel * 255);
+                kleurwaarde2 = (int)(kleurwaarde2 / lichtenoppixel * 255);
+                kleurwaarde3 = (int)(kleurwaarde3 / lichtenoppixel * 255);
             }
             else
             {
@@ -130,6 +135,13 @@ namespace Template
                 kleurwaarde2 = (int)(pixelintensiteit * (kleurwaarde2 / lichtenoppixel) * 255);
                 kleurwaarde3 = (int)(pixelintensiteit * (kleurwaarde3 / lichtenoppixel) * 255);
             }
+
+            if (kleurwaarde1 > 255)
+                kleurwaarde1 = 255;
+            if (kleurwaarde2 > 255)
+                kleurwaarde2 = 255;
+            if (kleurwaarde3 > 255)
+                kleurwaarde3 = 255;
 
             return CreateColor((int)kleurwaarde1, (int)kleurwaarde2, (int)kleurwaarde3);
         }
