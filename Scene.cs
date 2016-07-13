@@ -121,19 +121,19 @@ namespace Template
                 }
             }
 
-            if (pixelintensiteit >= 1)
+            if (pixelintensiteit > 1)
             {
                 // grote intensiteit wordt 'gewoon' fel, afhankelijk van de intensiteit van het licht
-                kleurwaarde1 = (int)(kleurwaarde1 / lichtenoppixel * 255);
-                kleurwaarde2 = (int)(kleurwaarde2 / lichtenoppixel * 255);
-                kleurwaarde3 = (int)(kleurwaarde3 / lichtenoppixel * 255);
+                kleurwaarde1 = (int)(kleurwaarde1 * 255);
+                kleurwaarde2 = (int)(kleurwaarde2 * 255);
+                kleurwaarde3 = (int)(kleurwaarde3 * 255);
             }
             else
             {
                 //kleurwaarde = (int)(intensiteit * (255 / 100));
-                kleurwaarde1 = (int)(pixelintensiteit * (kleurwaarde1 / lichtenoppixel) * 255);
-                kleurwaarde2 = (int)(pixelintensiteit * (kleurwaarde2 / lichtenoppixel) * 255);
-                kleurwaarde3 = (int)(pixelintensiteit * (kleurwaarde3 / lichtenoppixel) * 255);
+                kleurwaarde1 = (int)(pixelintensiteit * (kleurwaarde1) * 255);
+                kleurwaarde2 = (int)(pixelintensiteit * (kleurwaarde2) * 255);
+                kleurwaarde3 = (int)(pixelintensiteit * (kleurwaarde3) * 255);
             }
 
             if (kleurwaarde1 > 255)
